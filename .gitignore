@@ -1,0 +1,49 @@
+# Node modules
+**/node_modules
+
+# Build output
+**/dist
+**/build
+
+# Logs
+*.log
+logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Env files
+*.env
+.env.*
+
+# System junk
+.DS_Store
+Thumbs.db
+
+# IDEs & editors
+.vscode
+.idea
+*.swp
+
+# Coverage (from testing)
+coverage/
+**/coverage
+
+# Next.js (if used in frontend)
+.next/
+out/
+
+# Svelte / Vite / React dev artifacts
+.svelte-kit/
+.svelte/
+*.tsbuildinfo
+*.eslintcache
+*.cache/
+vite.cache/
+turbo/
+
+# Optional: lock files if you're using only one package manager
+# Uncomment one of these depending on what you're using
+# yarn.lock
+# package-lock.json
+# pnpm-lock.yaml
