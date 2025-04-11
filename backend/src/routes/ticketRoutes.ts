@@ -14,6 +14,6 @@ router.post('/create', authMiddleware, roleMiddleware(['seeker']), createTicketR
 router.get('/my-requests', authMiddleware, getUserRequests);
 router.get('/open', authMiddleware, roleMiddleware(['provider']), getAllOpenRequests);
 router.post('/accept/:id', authMiddleware, roleMiddleware(['provider']), acceptRequest);
-router.patch('/status/:id', authMiddleware, updateTicketStatus);
+router.patch('/status/:id', authMiddleware, roleMiddleware(['seeker']), updateTicketStatus);
 
 export default router;

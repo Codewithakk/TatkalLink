@@ -12,6 +12,7 @@ import httpError from './utils/httpError';
 import authRoutes from './routes/auth.routes';
 import seekerRoutes from "./routes/seeker.route"
 import reviewRoutes from './routes/review.routes';
+import ticketRoutes from './routes/ticketRoutes';
 // import sendNotificationToUser from './utils/sendNotification'; // You referenced it
 
 dotenv.config();
@@ -60,13 +61,13 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../', 'public')));
 
 // Routes
-app.get('//api/v1', (_: Request, res: Response) => {
+app.get('/', (_: Request, res: Response) => {
   res.status(200).json({ message: '🚀 Welcome to the TatkalLink Backend API' });
 });
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/seeker', seekerRoutes);
-// app.use('/api/v1/provider', providerRoutes);
+app.use('/api/v1/ticket', ticketRoutes);
 app.use('/api/v1/review', reviewRoutes);
 
 // 404 Handler
