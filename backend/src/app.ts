@@ -9,7 +9,9 @@ import dotenv from 'dotenv';
 import globalErrorHandler from './middlewares/GlobalErrorhandler';
 import responseMessage from './constant/responseMessage'; // Fixed typo
 import httpError from './utils/httpError';
-import authRoutes from './routes/auth.routes'; // Make sure this exists
+import authRoutes from './routes/auth.routes';
+import seekerRoutes from "./routes/seeker.route"
+import reviewRoutes from './routes/review.routes';
 // import sendNotificationToUser from './utils/sendNotification'; // You referenced it
 
 dotenv.config();
@@ -58,11 +60,14 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../', 'public')));
 
 // Routes
-app.get('/', (_: Request, res: Response) => {
-  res.status(200).json({ message: '🚀 Welcome to the Mood-meal Backend API' });
+app.get('//api/v1', (_: Request, res: Response) => {
+  res.status(200).json({ message: '🚀 Welcome to the TatkalLink Backend API' });
 });
 
-app.use('/api/v1/auth', authRoutes); // Make sure this route exists
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/seeker', seekerRoutes);
+// app.use('/api/v1/provider', providerRoutes);
+app.use('/api/v1/review', reviewRoutes);
 
 // 404 Handler
 app.use((req: Request, _: Response, next: NextFunction) => {

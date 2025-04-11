@@ -8,11 +8,11 @@ declare module "express-serve-static-core" {
     interface Request {
         user?: {
             userId: string;
-            id?: string
-            userEmail: string;
+            role: string;
+            email?: string;
         };
     }
-  }
+}
 
 export type THttpResponse = {
     success: boolean
