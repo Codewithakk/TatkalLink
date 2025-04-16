@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import TicketRequest from '../models/TicketRequest';
 import mongoose from 'mongoose';
+import { Order } from '../models/order';
 
 export const createTicketRequest = async (req: Request, res: Response) => {
   try {
@@ -72,4 +73,51 @@ export const updateTicketStatus = async (req: Request, res: Response, next: Next
   const ticket = await TicketRequest.findByIdAndUpdate(req.params.id, { status }, { new: true });
   if (!ticket) res.status(404).json({ message: 'Request not found' });
   res.status(200).json(ticket);
+};
+
+export const getAllRequests = async (_req: Request, res: Response) => {
+  try {
+    const requests = await TicketRequest.find().populate('seekerId');
+    res.json(requests);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
+export const getAllCompletedRequests = async (req: Request, res: Response) => {
+  try {
+    // assuming provider's orders
+    const orders = await Order.find({ status: 'completed', userId: req.user?.userId });
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
+export const getAllStatistics = async (req: Request, res: Response) => {
+  try {
+    const completed = await Order.countDocuments({ userId: req.user?.userId, status: 'completed' });
+    const pending = await Order.countDocuments({ userId: req.user?.userId, status: 'pending' });
+    const totalRequests = await TicketRequest.countDocuments({ acceptedBy: req.user?.userId, status: 'completed' });
+
+    res.json({
+      totalCompletedOrders: completed,
+      pendingOrders: pending,
+      ticketRequestsHandled: totalRequests
+    });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
+export const getAllEarnings = async (req: Request, res: Response) => {
+  try {
+    // Assuming earnings are based on orders for simplicity
+    const completedOrders = await Order.find({ userId: req.user?.userId, status: 'completed' });
+
+    const totalEarnings = completedOrders.reduce((sum, order) => sum + order.totalAmount, 0);
+    res.json({ totalEarnings, completedOrderCount: completedOrders.length });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 };

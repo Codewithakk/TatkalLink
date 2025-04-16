@@ -13,7 +13,13 @@ import authRoutes from './routes/auth.routes';
 import seekerRoutes from "./routes/seeker.route"
 import reviewRoutes from './routes/review.routes';
 import ticketRoutes from './routes/ticketRoutes';
+import profileRoutes from './routes/user.routes'
 // import sendNotificationToUser from './utils/sendNotification'; // You referenced it
+import orderRoutes from './routes/order.routes';
+import adminRoutes from './routes/admin.routes';
+import notificationRoutes from './routes/notification.routes';
+import paymentRoutes from './routes/payment.routes';
+import systemRoutes from './routes/system.routes';
 
 dotenv.config();
 
@@ -69,6 +75,12 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/seeker', seekerRoutes);
 app.use('/api/v1/ticket', ticketRoutes);
 app.use('/api/v1/review', reviewRoutes);
+app.use('/api/v1/profile', profileRoutes);
+app.use('/api/v1/order', orderRoutes);
+app.use('/api/v1/admin', adminRoutes);
+app.use('/api/v1//notification', notificationRoutes);
+app.use('/api/v1/payments', paymentRoutes);
+app.use('/api/v1/system', systemRoutes);
 
 // 404 Handler
 app.use((req: Request, _: Response, next: NextFunction) => {

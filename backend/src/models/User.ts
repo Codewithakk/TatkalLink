@@ -9,7 +9,7 @@ export interface IUser extends Document {
   password: string;
   role: 'seeker' | 'provider' | 'admin';
   isVerified: boolean;
-  tokens: { token: string }[];
+  // tokens: { token: string }[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -23,7 +23,7 @@ const userSchema = new Schema<IUser>(
     password: { type: String, required: true },
     role: { type: String, enum: ['seeker', 'provider', 'admin'], default: 'seeker' },
     isVerified: { type: Boolean, default: false },
-    tokens: [{ token: { type: String } }],
+    // tokens: [{ token: { type: String } }],
   },
   { timestamps: true }
 );

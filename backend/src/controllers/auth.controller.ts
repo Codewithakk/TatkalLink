@@ -35,12 +35,9 @@ const authController = {
         password: hashedPassword,
         role: role || "seeker",
         isVerified: false,
-        tokens: [],
       });
 
       const { token, refreshToken } = generateToken((newUser._id as string).toString(), newUser.role);
-
-      newUser.tokens.push({ token });
       await newUser.save();
 
       await redisClient.setEx(`auth:${newUser._id as string}`, 3600, token);
@@ -84,11 +81,9 @@ const authController = {
       }
 
       const { token, refreshToken } = generateToken(user._id as string, user.role);
-
-      user.tokens.push({ token });
       await user.save();
 
-      await redisClient.setEx(`auth:${user._id as string}`, 3600, token);
+      await redisClient.setEx(`auth:${user._id as string}`, 604800, token);
       await redisClient.setEx(`refresh:${user._id as string}`, 604800, refreshToken);
 
       return httpResponse(req, res, 200, "Login successful", {
